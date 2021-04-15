@@ -1,0 +1,20 @@
+class {
+  onInput (input) {
+    this.state = {
+      title: input.title
+    };
+  }
+}
+
+<style>
+    header {
+       font-size: 30px;
+       text-align: center;
+       margin: 50px auto 0px auto;
+       font-weight: 300;
+    }
+</style>
+
+<header>
+  <h1>${input.title}</h1>
+</header>

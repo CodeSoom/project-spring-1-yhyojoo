@@ -1,86 +1,14 @@
-import axios from 'axios';
+<html>
 
-class {
-    onCreate() {
-        this.state = {
-            diaries: [],
-        };
-        this.loadDiaries();
-    }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width-device-width, initial-scale=1.0">
+  <title>MyDiary</title>
+</head>
 
-    async loadDiaries() {
-        const { data } = await axios.get('http://localhost:8080/diaries');
-        this.state.diaries = data;
-    }
+<body>
+  <diary-header title="MY DIARY"/>
+  <diary-main />
+</body>
 
-    async createDiary() {
-        const title = this.getEl('title').value;
-        await axios.post('http://localhost:8080/diaries', {
-            title,
-        });
-        await this.loadDiaries();
-    }
-
-   editDiary(id) {
-        this.state.diaries = this.state.diaries.map(diary => diary.id === id ? {
-            ...diary,
-            editing: true,
-        } : diary);
-    }
-
-    cancelEditDiary(id) {
-        this.state.diaries = this.state.diaries.map(diary => diary.id === id ? {
-            ...diary,
-            editing: false,
-        } : diary);
-    }
-
-    async updateDiary(id) {
-        const title = this.getEl(`title-${id}`).value;
-        await axios.patch(`http://localhost:8080/diaries/${id}`, {
-            title,
-        });
-        await this.loadDiaries();
-    }
-
-    async deleteDiary(id) {
-        await axios.delete(`http://localhost:8080/diaries/${id}`);
-        await this.loadDiaries();
-    }
-}
-
-<h1>MY DIARY</h1>
-<ul>
-    <for|diary| of=state.diaries>
-        <li>
-            <if(diary.editing)>
-                <input key=`title-${diary.id}` type="text" value=diary.title />
-                ${' '}
-                <button type="button" on-click('updateDiary', diary.id)>
-                    확인
-                </button>
-                <button type="button" on-click('cancelEditDiary', diary.id)>
-                    취소
-                </button>
-            </if>
-            <else>
-                ${diary.title}
-                ${' '}
-                <button type="button" on-click('editDiary', diary.id)>
-                    수정
-                </button>
-                <button type="button" on-click('deleteDiary', diary.id)>
-                    삭제
-                </button>
-            </else>
-        </li>
-    </for>
-</ul>
-<p>
-    <label for:scoped="title"></label>
-    <input id:scoped="title" key="title" type="text" />
-    ${' '}
-    <button type="button" on-click("createDiary")>
-        추가
-    </button>
-</p>
+</html>
