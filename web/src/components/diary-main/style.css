@@ -2,6 +2,8 @@
 @font-face {
     font-family: 'NEXON Lv2 Gothic';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .main {
@@ -16,6 +18,15 @@
     margin-left: 5px;
  }
 
+  li button {
+    display: none;
+    font-weight: bold;
+  }
+
+  li:hover button {
+    display: inline-block;
+  }
+
  button {
     font-size: 13px;
     background-color:transparent;
@@ -23,15 +34,6 @@
     outline: 0;
     text-align: left;
     cursor: pointer;
- }
-
- li button {
-   display: none;
-   font-weight: bold;
- }
-
- li:hover button {
-   display: inline-block;
  }
 
  input {
