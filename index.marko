@@ -1,0 +1,92 @@
+import axios from 'axios';
+
+class {
+   onCreate() {
+       this.state = {
+           diaries: [],
+       };
+       this.loadDiaries();
+   }
+
+   async loadDiaries() {
+       const { data } = await axios.get('http://localhost:8080/diaries');
+       this.state.diaries = data;
+   }
+
+   async createDiary() {
+        const title = this.getEl('title').value;
+        await axios.post('http://localhost:8080/diaries', {
+            title,
+        });
+        this.loadDiaries();
+    }
+
+   editDiary(id) {
+        this.state.diaries = this.state.diaries.map(diary => diary.id === id ? {
+            ...diary,
+            editing: true,
+        } : diary);
+    }
+
+    cancelEditDiary(id) {
+        this.state.diaries = this.state.diaries.map(diary => diary.id === id ? {
+            ...diary,
+            editing: false,
+        } : diary);
+    }
+
+    async updateDiary(id) {
+        const title = this.getEl(`title-${id}`).value;
+        await axios.patch(`http://localhost:8080/diaries/${id}`, {
+            title,
+        });
+        this.loadDiaries();
+    }
+
+    async deleteDiary(id) {
+        await axios.delete(`http://localhost:8080/diaries/${id}`);
+        this.loadDiaries();
+    }
+}
+
+
+<div class="main">
+<ul>
+    <for|diary| of=state.diaries>
+         <li>
+            <if(diary.editing)>
+                <input key=`title-${diary.id}` type="text" value=diary.title />
+                ${' '}
+                <button type="button" on-click('updateDiary', diary.id) style="font-size: 11px;">
+                    ㅇ
+                </button>
+                ${' '}
+                <button type="button" on-click('cancelEditDiary', diary.id)>
+                    ×
+                </button>
+            </if>
+            <else>
+                <a href="../../pages/detail">
+                  ${diary.title}
+                </a>
+                ${' '}
+                <button type="button" on-click('editDiary', diary.id)>
+                    ⚙
+                </button>
+                ${' '}
+                <button type="button" on-click('deleteDiary', diary.id)>
+                    ×
+                </button>
+            </else>
+         </li>
+    </for>
+</ul>
+<p>
+    <label for:scoped="title"></label>
+    <input id:scoped="title" key="title" type="text" style="margin-left: 35px;" />
+    ${' '}
+    <button type="button" on-click("createDiary")>
+        +
+    </button>
+</p>
+</div>
