@@ -1,0 +1,20 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "the default starter app",
+  "scripts": {
+    "dev": "marko-serve --entry ./src/pages/",
+    "build": "marko-build ./src/pages/",
+    "start": "NODE_ENV=production node ./build/index.js"
+  },
+  "private": true,
+  "dependencies": {
+    "@marko/compiler": "^5.7.0",
+    "axios": "^0.21.0",
+    "marko": "^4.23.16"
+  },
+  "devDependencies": {
+    "@marko/build": "^2.2.5",
+    "@marko/serve": "^2.2.5"
+  }
+}
