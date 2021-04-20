@@ -1,5 +1,6 @@
 package com.codesoom.project.dto;
 
+import com.codesoom.project.domain.Diary;
 import com.codesoom.project.domain.Task;
 import com.github.dozermapper.core.Mapping;
 import lombok.Builder;
@@ -18,6 +19,15 @@ public class TaskCreateData {
     @Mapping("title")
     private String title;
 
+    @Mapping("diary")
+    private Diary diary;
+
+    @Builder
+    public TaskCreateData(String title, Diary diary) {
+        this.title = title;
+        this.diary = diary;
+    }
+
     @Builder
     public TaskCreateData(String title) {
         this.title = title;
@@ -26,6 +36,7 @@ public class TaskCreateData {
     public Task toEntity() {
         return Task.builder()
                 .title(this.title)
+                .diary(this.diary)
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.codesoom.project.dto;
 
+import com.codesoom.project.domain.Diary;
 import com.codesoom.project.domain.Task;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,15 @@ public class TaskResultData {
 
     private String title;
 
+    private Diary diary;
+
+    @Builder
+    public TaskResultData(Long id, String title, Diary diary) {
+        this.id = id;
+        this.title = title;
+        this.diary = diary;
+    }
+
     @Builder
     public TaskResultData(Long id, String title) {
         this.id = id;
@@ -27,6 +37,7 @@ public class TaskResultData {
         return TaskResultData.builder()
                 .id(task.getId())
                 .title(task.getTitle())
+                .diary(task.getDiary())
                 .build();
     }
 }
